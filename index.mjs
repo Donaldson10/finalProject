@@ -1,2 +1,2 @@
 alert('hi')
-//github test
+//github tests
