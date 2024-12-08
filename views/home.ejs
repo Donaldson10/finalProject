@@ -9,14 +9,6 @@
 </head>
 <body>
     <%- include('partials/logged_in_menu') %>
-
-    Nutrition <br>
-    <form action="/nutritionSearch" method="post">
-        <input type="text" name="foodName">
-        <button>submit</button>
-    </form>
-    <% if (searched) { %>
-        <%- include('partials/searchedFacts') %>
-      <% } %>
+   <h1>Home!</h1>
 </body>
 </html>
