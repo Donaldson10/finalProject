@@ -1,7 +1,10 @@
-import express from 'express';
+import express, { json } from 'express';
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcrypt';
 import session from 'express-session';
+import axios from 'axios';
+
+//const { NutritionAnalysisClient } = require('edamam-api');
 
 const app = express();
 
@@ -20,8 +23,8 @@ app.use(session({
 
 let authenticated = false;
 let loggedIn = false;
-app_id = "098dd48f";
-app_key = "5ddd89c02ee2b2c3a6274145ac587989";
+let app_id = "b4286bf9";
+let app_key = "121bef8466d607b575f1c797f0a7905a";
 
 // setting up database connection pool
 const pool = mysql.createPool({
@@ -50,8 +53,24 @@ app.get('/mealplan',(req, res) => {
  });
 
  app.post('/nutritionSearch', async (req, res) => {
-
-    let nutrition = fetch("https://api.edamam.com/api/nutrition-" + app_id + "&app_key=" + app_key + "&nutrition-type=logging&ingr=" + foodName + "&");
+    let foodName = req.body.foodName;
+    console.log(foodName);
+    /*const response = await axios.get(`https://api.edamam.com/api/nutrition-data?app_id=${app_id}&app_key=${app_key}&nutrition-type=logging&ingr=${foodName}`,
+        (res) =>{
+            console.log(JSON.stringify(res.calories));
+        }
+    );*/
+    //let url = await fetch("https://api.edamam.com/api/nutrition-data?app_id=b4286bf9&app_key=121bef8466d607b575f1c797f0a7905a%09&nutrition-type=logging&ingr=apple");
+    let url = await fetch(`https://api.edamam.com/api/nutrition-data?app_id=${app_id}&app_key=${app_key}&nutrition-type=logging&ingr=${foodName}`);
+    //console.log(url);
+    let facts = await url.json();
+   /*const client = new NutritionAnalysisClient({
+        appId: app_id,
+        appKey: app_key
+      });
+    
+      const results = await client.search({ query: foodName });*/
+    console.log(facts, facts.calories);
     res.render('nutrition');
  });
 
