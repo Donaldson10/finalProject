@@ -448,3 +448,44 @@ nav {
 }
 
 /* footer */
+
+/* meals page */
+
+.meals-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+}
+
+.meal-card {
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  padding: 15px;
+  width: 250px;
+}
+/* meals page */
+
+/* edit meals page */
+
+.meal-card {
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 300px;
+}
+
+.meal-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.meal-card button {
+  background: #dc3545;
+  color: #fff;
+  padding: 10px;
+}
+
+/* edit meals page */

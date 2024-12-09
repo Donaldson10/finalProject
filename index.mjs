@@ -139,7 +139,7 @@ app.post('/meals/edit', isAuthenticated, async (req, res) => {
     let params = [calories, meal, time, date, mealId];
 
 const [mealData] = await conn.query(sql, params);
-res.redirect('/meals');
+res.redirect('/meals', {img});
 });
 
 

@@ -6,27 +6,37 @@
     <title>Document</title>
     <%- include('partials/head') %>
 </head>
-<body > 
+<body> 
 
     <%- include('partials/logged_in_menu') %>
-    <% for (let meal of rows) { %>
-        <form action="/meals/edit">
-            <input type="hidden" value="<%=meal.meal_Id%>" name="meal_Id" class="btn btn btn-dark">
-           
-            <input type="hidden" value="<%=meal.meal_Id%>" name="meal_Id">
-           <input type="hidden" id="dateV" value="<%=meal.date%>">
-            <span>Date: </span><span id="date"><%=meal.date%></span> <br>
-            <span>Meal Type: </span><span id="meal"><%=meal.time%></span> <br>
-           <span>Calories: </span><span id="meal"><%=meal.calories%></span> <br>
-           <span>Meal: </span><span id="meal"><%=meal.meal%></span> <br>
-           <button>Update</button>
-           
-        </form>
-            
+    <div class="meals-container">
+        <% for (let meal of rows) { %>
+         <div class="meal-card">
+         <form action="/meals/edit" class="meal-form">
+          <input type="hidden" name="meal_Id" value="<%=meal.meal_Id%>">
+          <input type="hidden" id="dateV" value="<%=meal.date%>">
+           <div>
+           <span>Date:</span>
+           <span><%=meal.date%></span>
+           </div>
+            <div>
+            <span>Meal Type:</span>
+            <span><%=meal.time%></span>
+            </div>
+            <div>
+            <span>Calories:</span>
+             <span><%=meal.calories%></span>
+             </div>
+             <div>
+             <span>Meal:</span>
+             <span><%=meal.meal%></span>
+             </div>
+             <button>Update</button>
+             </form>
+            </div>
         <% } %>
-        
-        <script src="/js/meals.js"></script>
     </div>
-
+    <script src="/js/meals.js"></script>
+    <%- include('partials/footer') %>
 </body>
-<%- include('partials/footer') %>
+</html>

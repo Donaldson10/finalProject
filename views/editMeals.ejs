@@ -3,20 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Meal</title>
+    <%- include('partials/head') %>
 </head>
 <body>
-    <form action="/meals/edit" method="post">
-        <input type="hidden" name="mealId" id="" value="<%=mealData[0].meal_Id%>">
-        <span><%=mealData[0].calories%> calories</span>
-        <input type="text" name="meal" value="<%=mealData[0].meal%>">
-        <input type="text" name="time" value="<%=mealData[0].time%>">
-        <input type="hidden" value="<%=mealData[0].date%>" name="dateV" id="dateV">
-        <input type="date" name="date" id="date">
-        <button>Update!</button>
-    </form>
-    <script src="/js/editMeal.js"></script>
+    <%- include('partials/logged_in_menu') %>
 
+   <div class="meal-card">
+    <form action="/meals/edit" method="post">
+    <input type="hidden" name="mealId" value="<%= mealData[0].meal_Id %>">        
+     <div>
+     <strong>Calories:</strong> <%= mealData[0].calories %> calories
+     </div>      
+     <div>
+     <strong>Meal:</strong>
+     <input type="text" name="meal" value="<%= mealData[0].meal %>">
+     </div>       
+    <div>
+   <strong>Meal Type:</strong>
+   <input type="text" name="time" value="<%= mealData[0].time %>">
+   </div>     
+    <input type="hidden" name="dateV" id="dateV" value="<%= mealData[0].date %>">       
+   <div>
+     <strong>Date:</strong>
+      <input type="date" name="date" id="date">
+       </div>
+       <button>Update!</button>
+        </form>
+    </div>
+    <script src="/js/editMeal.js"></script>
+    <%- include('partials/footer') %>
 </body>
-<%- include('partials/footer') %>
 </html>
