@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/meals/edit" method="post">
+    <form action="/meals/edit" method="post" id="editMeals">
         <input type="hidden" name="mealId" id="" value="<%=mealData[0].meal_Id%>">
         <span><%=mealData[0].calories%> calories</span>
         <input type="text" name="meal" value="<%=mealData[0].meal%>">
