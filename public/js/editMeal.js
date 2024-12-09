@@ -1,4 +1,3 @@
-alert('hi');
 let dobFormatted = new Date(document.querySelector("#dateV").value);
 console.log(document.querySelector("#dateV").value)
 

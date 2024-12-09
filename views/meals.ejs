@@ -11,19 +11,21 @@
     <%- include('partials/logged_in_menu') %>
     <% for (let meal of rows) { %>
         <form action="/meals/edit">
-            <input type="hidden" value="<%=meal.meal_Id%>" name="meal_Id">
-            <button>Update</button>
-        </form>
-        <form action="/meals/delete" id="delete" method="post"> 
-            <input type="hidden" value="<%=meal.meal_Id%>" name="meal_Id">
+            <input type="hidden" value="<%=meal.meal_Id%>" name="meal_Id" class="btn btn btn-dark">
            
-           <span id="meal"><%=meal.calories%></span> <br>
-           <span id="meal"><%=meal.meal%></span> <br>
-           <span id="meal"><%=meal.time%></span> <br>
-           <span id="meal"><%=meal.date%></span> <br>
-            <button type="submit" class="btn btn btn-dark">Delete</button>
-            </form>
+            <input type="hidden" value="<%=meal.meal_Id%>" name="meal_Id">
+           <input type="hidden" id="dateV" value="<%=meal.date%>">
+            <span>Date: </span><span id="date"><%=meal.date%></span> <br>
+            <span>Meal Type: </span><span id="meal"><%=meal.time%></span> <br>
+           <span>Calories: </span><span id="meal"><%=meal.calories%></span> <br>
+           <span>Meal: </span><span id="meal"><%=meal.meal%></span> <br>
+           <button>Update</button>
+           
+        </form>
+            
         <% } %>
+        
+        <script src="/js/meals.js"></script>
     </div>
 
 </body>
