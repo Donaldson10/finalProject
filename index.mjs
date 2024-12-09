@@ -61,12 +61,13 @@ app.get('/mealplan',(req, res) => {
  });
 
  app.get('/meals/edit', async (req, res) => {
-    let mealId = req.query.mealId;
+    let mealId = req.query.meal_Id;
+    console.log('meal Id =' + mealId);
     let sql = `SELECT *
                 FROM food 
                 WHERE meal_Id = ?`;
 const [mealData] = await conn.query(sql, mealId);
-res.render('editMeals', {mealData});
+res.render('home');
 });
 
 app.post('/meals/edit', async (req, res) => {
@@ -75,19 +76,24 @@ app.post('/meals/edit', async (req, res) => {
     let nutrition = await url.json();
 
     let calories = nutrition.calories;
+    console.log(calories);
     let mealId = req.body.mealId;
+    console.log('mealid = ' + mealId);
     let meal = req.body.meal;
+    console.log('meal = ' + meal);
     let time = req.body.time;
+    console.log('time = ' + time);
     let date = req.body.date;
-    let sql = `Update food
-                SET calories = ?, 
-                SET meal = ?,
-                SET time = ?,
-                SET date =?
+    console.log('date = ' + date);
+    let sql = `UPDATE food
+                SET calories = ?,
+                    meal = ?,
+                    time = ?,
+                    date = ?
                 WHERE meal_Id = ?`;
     let params = [calories, meal, time, date, mealId];
 
-const [mealData] = await conn.query(sql, mealId);
+const [mealData] = await conn.query(sql, params);
 res.render('editMeals', {mealData});
 });
 

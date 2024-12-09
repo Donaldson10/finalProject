@@ -10,9 +10,13 @@
 <body>
     <%- include('partials/logged_in_menu') %>
     <% for (let meal of rows) { %>
+        <form action="/meals/edit">
+            <input type="hidden" value="<%=meal.meal_Id%>" name="meal_Id">
+            <button>Update</button>
+        </form>
         <form action="/meals/delete" id="delete" method="post"> 
-            <input type="hidden" value="<%=meal.meal_Id%>" name="mealId">
-            <span id="dash">[</span> <a href="/meals/edit?meal_Id=<%= meal.meal_Id%>" class="mealsLink">Update</a> <span id="dash">]</span> 
+            <input type="hidden" value="<%=meal.meal_Id%>" name="meal_Id">
+           
            <span id="meal"><%=meal.calories%></span> <br>
            <span id="meal"><%=meal.meal%></span> <br>
            <span id="meal"><%=meal.time%></span> <br>
