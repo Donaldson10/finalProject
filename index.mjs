@@ -1,5 +1,10 @@
-import express from 'express';
+import express, { json } from 'express';
 import mysql from 'mysql2/promise';
+import bcrypt from 'bcrypt';
+import session from 'express-session';
+import axios from 'axios';
+
+//const { NutritionAnalysisClient } = require('edamam-api');
 
 const app = express();
 
@@ -9,21 +14,25 @@ app.use(express.static('public'));
 //for Express to get values using POST method
 app.use(express.urlencoded({extended:true}));
 
-// setting up database connection pool
-// const pool = mysql.createPool({
-//     host: "your_hostname",
-//     user: "your_username",
-//     password: "your_password",
-//     database: "your_database",
-//     connectionLimit: 10,
-//     waitForConnections: true
-// });
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
 
+let authenticated = false;
+let loggedIn = false;
+let app_id = "b4286bf9";
+let app_key = "121bef8466d607b575f1c797f0a7905a";
+let searched = false;
+
+// setting up database connection pool
 const pool = mysql.createPool({
-    host: "aeckhaus.site",
-    user: "aeckhaus_webuser",
-    password: "Elkike#1",
-    database: "aeckhaus_quotes",
+    host: "yegord.tech",
+    user: "yegordte_webuser",
+    password: "cst-336",
+    database: "yegordte_foodLog",
     connectionLimit: 10,
     waitForConnections: true
 });
@@ -76,8 +85,6 @@ app.get('/mealplan', isAuthenticated, (req, res) => {
     res.render('mealplan')
  });
 
-<<<<<<< Updated upstream
-=======
  app.get('/nutrition', isAuthenticated, (req, res) => {
     res.render('nutrition', {searched});
  });
@@ -162,7 +169,6 @@ res.render('meals', {rows});
     res.render('nutrition',{searched})
  });
 
->>>>>>> Stashed changes
 app.get("/dbTest", async(req, res) => {
     let sql = "SELECT CURDATE()";
     const [rows] = await conn.query(sql);
@@ -172,9 +178,3 @@ app.get("/dbTest", async(req, res) => {
 app.listen(3000, ()=>{
     console.log("Express server running")
 })
-<<<<<<< Updated upstream
-
-
-
-=======
->>>>>>> Stashed changes

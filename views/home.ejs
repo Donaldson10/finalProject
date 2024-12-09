@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< Updated upstream
     <title>Document</title>
+    <%- include('partials/head') %>
 
 </head>
 <body>
@@ -20,7 +18,6 @@
     <button>My Meal Plans</button>
     </form>
     <br>
-=======
     <title>Home</title>
     <%- include('partials/head') %> 
     <link rel="stylesheet" href="styles.css"> 
@@ -32,8 +29,9 @@
         <h1 class="h1home">Home!</h1> 
         <p>Welcome!</p>
     </div>
->>>>>>> Stashed changes
 
+    <%- include('partials/logged_in_menu') %>
+   <h1>Home!</h1>
 </body>
 <%- include('partials/footer') %>
 </html>
