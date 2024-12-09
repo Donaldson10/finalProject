@@ -1,0 +1,209 @@
+
+<div id="conatiner">
+  <div>
+    <form action="/updateFoodLog" method="post">
+      <input type="hidden"  name="calories" value="<%=nutrition.calories%>">
+      <input type="hidden" name="meal" value="<%=nutrition.ingredients[0].text%>">
+      <strong><span>Meal:</span> <span><%=nutrition.ingredients[0].text%></span></strong> 
+      <br>
+      <strong><span>Meal Date:</span> <input type="date" name="date"></strong> 
+      <br>
+      <strong><span>Meal Time:</span></strong> 
+      <br>
+      <select name="time" id="time">
+        <option value="Breakfast" id="time">Breakfast</option>
+        <option value="Lunch" id="time">Lunch</option>
+        <option value="Mid Day Snack" id="time">Mid Day Snack</option>
+        <option value="Dinner" id="time">Dinner</option>
+        <option value="LateSnack" id="time">Late Snack</option>
+      </select>
+      <br>
+      <br>
+    <button>Update Food Log!</button>
+    </form>
+  </div>
+  <div>
+    <section class="performance-facts">
+        <header class="performance-facts__header">
+          <h1 class="performance-facts__title">Nutrition Facts</h1>
+        </header>
+        <table class="performance-facts__table">
+          <thead>
+            <tr>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th colspan="2">
+                <b>Calories</b>
+                <%=nutrition.calories%>
+              </th>
+              <td>
+                Calories from Fat
+                <%=nutrition.totalNutrientsKCal.FAT_KCAL.quantity%>
+              </td>
+            </tr>
+            <tr class="thick-row">
+              <td colspan="3" class="small-info">
+                <b>% Daily Value*</b>
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2">
+                <b>Total Fat</b>
+                <%=nutrition.totalNutrients.FAT.quantity.toFixed(2)%>g
+              </th>
+              <td>
+                <b><%=nutrition.totalDaily.FAT.quantity.toFixed(2)%>%</b>
+              </td>
+            </tr>
+            <tr>
+              <td class="blank-cell">
+              </td>
+              <th>
+                Saturated Fat
+                <%=nutrition.totalNutrients.FASAT.quantity.toFixed(2)%>g
+              </th>
+              <td>
+                <b><%=nutrition.totalDaily.FASAT.quantity.toFixed(2)%>%</b>
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2">
+                <b>Cholesterol</b>
+                <%=nutrition.totalNutrients.CHOLE.quantity.toFixed(2)%>mg
+              </th>
+              <td>
+                <b><%=nutrition.totalDaily.CHOLE.quantity.toFixed(2)%>%</b>
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2">
+                <b>Sodium</b>
+                <%=nutrition.totalNutrients.NA.quantity.toFixed(2)%>mg
+              </th>
+              <td>
+                <b><%=nutrition.totalDaily.NA.quantity.toFixed(2)%>%</b>
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2">
+                <b>Total Carbohydrate</b>
+                <%=nutrition.totalNutrients.CHOCDF.quantity.toFixed(2)%>g
+              </th>
+              <td>
+                <b><%=nutrition.totalDaily.CHOCDF.quantity.toFixed(2)%>%</b>
+              </td>
+            </tr>
+            <tr>
+              <td class="blank-cell">
+              </td>
+              <th>
+                Dietary Fiber
+                <%=nutrition.totalNutrients.FIBTG.quantity.toFixed(2)%>g
+              </th>
+              <td>
+                <b><%=nutrition.totalDaily.FIBTG.quantity.toFixed(2)%>%</b>
+              </td>
+            </tr>
+            <tr>
+              <td class="blank-cell">
+              </td>
+              <th>
+                Sugars
+                <%=nutrition.totalNutrients.SUGAR.quantity.toFixed(2)%>g
+              </th>
+              <td>
+              </td>
+            </tr>
+            <tr class="thick-end">
+              <th colspan="2">
+                <b>Protein</b>
+                <%=nutrition.totalNutrients.PROCNT.quantity.toFixed(2)%>g
+              </th>
+              <td>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+        <table class="performance-facts__table--grid">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                Vitamin D
+                <%=nutrition.totalDaily.VITD.quantity.toFixed(2)%>%
+              </td>
+              <td>
+                Potassium
+                <%=nutrition.totalDaily.K.quantity.toFixed(2)%>%
+              </td>
+            </tr>
+            <tr class="thin-end">
+              <td colspan="2">
+                Calcium
+                <%=nutrition.totalDaily.CA.quantity.toFixed(2)%>%
+              </td>
+              <td>
+                Iron
+                <%=nutrition.totalDaily.FE.quantity.toFixed(2)%>%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+        <p class="small-info">* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</p>
+      
+        <table class="performance-facts__table--small small-info">
+          <thead>
+            <tr>
+              <td colspan="2"></td>
+              <th>Calories:</th>
+              <th>2,000</th>
+              <th>2,500</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th colspan="2">Total Fat</th>
+              <td>Less than</td>
+              <td>65g</td>
+              <td>80g</td>
+            </tr>
+            <tr>
+              <td class="blank-cell"></td>
+              <th>Saturated Fat</th>
+              <td>Less than</td>
+              <td>20g</td>
+              <td>25g</td>
+            </tr>
+            <tr>
+              <th colspan="2">Cholesterol</th>
+              <td>Less than</td>
+              <td>300mg</td>
+              <td>300 mg</td>
+            </tr>
+            <tr>
+              <th colspan="2">Sodium</th>
+              <td>Less than</td>
+              <td>2,400mg</td>
+              <td>2,400mg</td>
+            </tr>
+            <tr>
+              <th colspan="3">Total Carbohydrate</th>
+              <td>300g</td>
+              <td>375g</td>
+            </tr>
+            <tr>
+              <td class="blank-cell"></td>
+              <th colspan="2">Dietary Fiber</th>
+              <td>25g</td>
+              <td>30g</td>
+            </tr>
+          </tbody>
+        </table>
+      
+      </section>
+    </div>
+  </div>
