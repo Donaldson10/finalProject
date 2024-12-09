@@ -37,30 +37,66 @@ const pool = mysql.createPool({
     waitForConnections: true
 });
 
-
 const conn = await pool.getConnection();
 
-//routes
 app.get('/', (req, res) => {
-   res.render('home')
+    res.render('login'); 
 });
 
-app.get('/mealplan',(req, res) => {
+app.post('/login', async (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+    let passwordHash = "";
+    let sql = `SELECT *
+               FROM admin
+               WHERE username = ?`;
+    const [rows] = await conn.query(sql, [username]);
+    if (rows.length > 0) {
+        passwordHash = rows[0].password;
+    }
+    let match = await bcrypt.compare(password, passwordHash);
+    if (match) {
+        req.session.fullName = rows[0].firstName + " " + rows[0].lastName;
+        req.session.authenticated = true;
+        return res.render('home');
+    } else {
+        return res.redirect("/");
+    }
+});
+
+function isAuthenticated(req, res,next){
+    if (req.session.authenticated){
+        next();
+    }else{
+        res.redirect("/");
+    }}
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/'); 
+    });
+});
+
+app.get('/home', isAuthenticated, (req, res) => {
+    res.render('home'); 
+});
+
+app.get('/mealplan', isAuthenticated, (req, res) => {
     res.render('mealplan')
  });
 
- app.get('/nutrition', (req, res) => {
+ app.get('/nutrition', isAuthenticated, (req, res) => {
     res.render('nutrition', {searched});
  });
 
- app.get('/meals', async (req, res) => {
+ app.get('/meals', isAuthenticated,  async (req, res) => {
     let sql = `SELECT * FROM food`;
     const [rows] = await conn.query(sql);
 
     res.render('meals', {searched, rows});
  });
 
- app.get('/meals/edit', async (req, res) => {
+ app.get('/meals/edit', isAuthenticated, async (req, res) => {
     let mealId = req.query.mealId;
     let sql = `SELECT *
                 FROM food 
@@ -69,7 +105,7 @@ const [mealData] = await conn.query(sql, mealId);
 res.render('editMeals', {mealData});
 });
 
-app.post('/meals/edit', async (req, res) => {
+app.post('/meals/edit', isAuthenticated, async (req, res) => {
     let foodName = req.body.meal;
     let url = await fetch(`https://api.edamam.com/api/nutrition-data?app_id=${app_id}&app_key=${app_key}&nutrition-type=logging&ingr=${foodName}`);
     let nutrition = await url.json();
@@ -92,7 +128,7 @@ res.render('editMeals', {mealData});
 });
 
 
-app.post('/meals/delete', async (req, res) => {
+app.post('/meals/delete', isAuthenticated, async (req, res) => {
     let mealId = req.query.mealId;
     let sql = `DELETE FROM food 
                 WHERE meal_Id = ?`;
@@ -102,7 +138,7 @@ let sqlFood = `SELECT * FROM food`;
 res.render('meals', {rows});
 });
 
- app.post('/nutritionSearch', async (req, res) => {
+ app.post('/nutritionSearch', isAuthenticated, async (req, res) => {
     let foodName = req.body.foodName;
     console.log(foodName);
     let url = await fetch(`https://api.edamam.com/api/nutrition-data?app_id=${app_id}&app_key=${app_key}&nutrition-type=logging&ingr=${foodName}`);
@@ -113,7 +149,7 @@ res.render('meals', {rows});
     console.log(nutrition, nutrition.calories,nutrition.totalNutrients.FAT.quantity);
     res.render('nutrition', {nutrition, searched});
  });
- app.post('/updateFoodLog', async (req, res) => {
+ app.post('/updateFoodLog', isAuthenticated, async (req, res) => {
     let calories = req.body.calories;
     let meal = req.body.meal;
     let time = req.body.time;
@@ -122,8 +158,6 @@ res.render('meals', {rows});
     console.log(meal);
     console.log(time);
     console.log(date);
-
-
 
     let sql = `INSERT INTO food
                 (calories, meal, time, date)
@@ -144,5 +178,3 @@ app.get("/dbTest", async(req, res) => {
 app.listen(3000, ()=>{
     console.log("Express server running")
 })
-
-

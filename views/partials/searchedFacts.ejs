@@ -4,16 +4,21 @@
     <form action="/updateFoodLog" method="post">
       <input type="hidden"  name="calories" value="<%=nutrition.calories%>">
       <input type="hidden" name="meal" value="<%=nutrition.ingredients[0].text%>">
-      <span>Meal:</span> <span><%=nutrition.ingredients[0].text%></span>
-      <span>Meal Date:</span> <input type="date" name="date">
-      <span>Meal Time:</span> 
+      <strong><span>Meal:</span> <span><%=nutrition.ingredients[0].text%></span></strong> 
+      <br>
+      <strong><span>Meal Date:</span> <input type="date" name="date"></strong> 
+      <br>
+      <strong><span>Meal Time:</span></strong> 
+      <br>
       <select name="time" id="time">
         <option value="Breakfast" id="time">Breakfast</option>
         <option value="Lunch" id="time">Lunch</option>
-        <option value="MidDaySnack" id="time">Mid Day Snack</option>
+        <option value="Mid Day Snack" id="time">Mid Day Snack</option>
         <option value="Dinner" id="time">Dinner</option>
         <option value="LateSnack" id="time">Late Snack</option>
       </select>
+      <br>
+      <br>
     <button>Update Food Log!</button>
     </form>
   </div>
