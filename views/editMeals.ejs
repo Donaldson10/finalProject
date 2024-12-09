@@ -10,7 +10,7 @@
     <%- include('partials/logged_in_menu') %>
 
    <div class="meal-card">
-    <form action="/meals/edit" method="post">
+    <form action="/meals/edit" method="post" id="editMeals">
     <input type="hidden" name="mealId" value="<%= mealData[0].meal_Id %>">        
      <div>
      <strong>Calories:</strong> <%= mealData[0].calories %> calories
